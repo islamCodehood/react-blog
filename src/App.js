@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import {useEffect, useState} from "react"
 import './App.css';
+import NavBar from './components/navbar';
 
+import Posts from './components/posts';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
+  const [posts, setPosts] = useState(localStorage.getItem("posts")||[])
+  useEffect(() => {
+    localStorage.setItem('posts', JSON.stringify(posts))
+    
+  }, [posts])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar posts={posts} setPosts={setPosts} />  
+      <Posts posts={posts} setPosts={setPosts}/>
     </div>
   );
 }
